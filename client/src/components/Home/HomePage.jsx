@@ -1,8 +1,7 @@
-import logo from '../logo.svg';
-import '../App.css';
-import UserRow from './UserRow';
+import '../../App.css';
+import UserRow from '../User/UserRow';
 import React, { PureComponent, useState } from 'react';
-import Modal from './Modal';
+import Modal from '../Modal/Modal';
 
 export default class HomePage extends PureComponent {
   state = {

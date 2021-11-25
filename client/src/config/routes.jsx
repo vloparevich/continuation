@@ -1,5 +1,5 @@
 import * as PATHS from '../utils/paths';
-import HomePage from '../pages/HomePage';
+import HomePage from '../components/Home/HomePage';
 
 const routes = (props) => {
   return [
