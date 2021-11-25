@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import Card from '../Card/Card';
+import classes from './AddUser.module.css';
 
 export default class AddUser extends Component {
   render() {
     return (
-      <div id='formBox'>
+      <Card className={classes.input}>
         <form onSubmit={(e) => this.props.handleAddUser(e)}>
           <label>Username </label>
           <input
@@ -21,7 +23,7 @@ export default class AddUser extends Component {
           />
           <button>Add User</button>
         </form>
-      </div>
+      </Card>
     );
   }
 }
