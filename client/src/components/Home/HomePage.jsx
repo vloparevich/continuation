@@ -2,6 +2,7 @@ import '../../App.css';
 import UserRow from '../User/UserRow';
 import React, { PureComponent, useState } from 'react';
 import Modal from '../Modal/Modal';
+import AddUser from '../AddUser/AddUser';
 
 export default class HomePage extends PureComponent {
   state = {
@@ -62,47 +63,27 @@ export default class HomePage extends PureComponent {
   render() {
     return (
       <div className='App'>
-        <div id='formBox'>
-          <form onSubmit={(e) => this.handleAddUser(e)}>
-            <label>Username </label>
-            <input
-              type='text'
-              value={this.state.userName}
-              name='userName'
-              onChange={(e) => this.handleUserDetailsChange(e)}
-            />
-            <label>Age (Years) </label>
-            <input
-              type='number'
-              value={this.state.age}
-              name='age'
-              onChange={(e) => this.handleUserDetailsChange(e)}
-            />
-            <button>Add User</button>
-          </form>
+        <AddUser
+          handleAddUser={(e) => this.handleAddUser(e)}
+          handleUserDetailsChange={(e) => this.handleUserDetailsChange(e)}
+          userName={this.state.userName}
+          age={this.state.age}
+        />
+        <Modal onOkay={this.handleModal} showModal={this.state.errorMessage}>
+          Please enter a valid name and age (non-empty values).
+        </Modal>
+        <div id='listOfUSers'>
+          {this.state.users.map((user, index) => {
+            return (
+              <UserRow
+                key={index}
+                userName={user.userName}
+                age={user.age}
+                hanleUserRemove={() => this.removeUseFromList(user.userName)}
+              />
+            );
+          })}
         </div>
-        <>
-          <>
-            <Modal
-              onOkay={this.handleModal}
-              showModal={this.state.errorMessage}
-            >
-              Please enter a valid name and age (non-empty values).
-            </Modal>
-          </>
-          <div id='listOfUSers'>
-            {this.state.users.map((user, index) => {
-              return (
-                <UserRow
-                  key={index}
-                  userName={user.userName}
-                  age={user.age}
-                  hanleUserRemove={() => this.removeUseFromList(user.userName)}
-                />
-              );
-            })}
-          </div>
-        </>
       </div>
     );
   }
