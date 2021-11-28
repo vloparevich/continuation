@@ -48,13 +48,13 @@ export default class HomePage extends PureComponent {
 
   render() {
     return (
-      <div className='App'>
+      <>
         <AddUser onUpdateUsers={this.updateListOfusers} />
         <UsersList
           users={this.state.users}
           hanleUserRemove={this.removeUserFromList}
         />
-      </div>
+      </>
     );
   }
 }

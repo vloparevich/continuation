@@ -3,6 +3,7 @@ import Card from '../Card/Card';
 import classes from './AddUser.module.css';
 import Button from '../../components/UI/Button';
 import ErrorModal from '../UI/ErrorModal';
+import Wrapper from '../Helpers/Wrapper';
 
 export default class AddUser extends Component {
   state = { userName: '', age: 0 };
@@ -48,7 +49,7 @@ export default class AddUser extends Component {
 
   render() {
     return (
-      <>
+      <Wrapper>
         {this.state.error && (
           <ErrorModal
             title={this.state.error.title}
@@ -76,7 +77,7 @@ export default class AddUser extends Component {
             <Button type='submit'>Add User</Button>
           </form>
         </Card>
-      </>
+      </Wrapper>
     );
   }
 }
