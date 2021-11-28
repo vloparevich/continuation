@@ -1,27 +1,49 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import ReactDOM from 'react-dom';
 import Card from '../Card/Card';
 import Button from '../UI/Button';
 import classes from '../UI/ErrorModal.module.css';
 
-export default class Modal extends Component {
+const Backdrop = (props) => {
+  return <div className={classes.backdrop} onClick={props.onClick}></div>;
+};
+
+const ModdalOverlay = (props) => {
+  return (
+    <Card className={classes.modal}>
+      <header className={classes.header}>
+        <h2>{props.title}</h2>
+      </header>
+      <div className={classes.content}>
+        <p>{props.message}</p>
+      </div>
+      <footer className={classes.actions}>
+        <Button onClick={props.onClick}>Okay</Button>
+      </footer>
+    </Card>
+  );
+};
+
+export default class ErrorModal extends Component {
   onOkay = () => {
     this.props.onOkay && this.props.onOkay();
   };
   render() {
     return (
-      <div className={classes.backdrop} onClick={this.onOkay}>
-        <Card className={classes.modal}>
-          <header className={classes.header}>
-            <h2>{this.props.title}</h2>
-          </header>
-          <div className={classes.content}>
-            <p>{this.props.message}</p>
-          </div>
-          <footer className={classes.actions}>
-            <Button onClick={this.onOkay}>Okay</Button>
-          </footer>
-        </Card>
-      </div>
+      <Fragment>
+        {ReactDOM.createPortal(
+          <Backdrop onClick={this.onOkay} />,
+          document.getElementById('backdrop-root')
+        )}
+        {ReactDOM.createPortal(
+          <ModdalOverlay
+            onClick={this.onOkay}
+            title={this.props.title}
+            message={this.props.message}
+          />,
+          document.getElementById('overlay-root')
+        )}
+      </Fragment>
     );
   }
 }
